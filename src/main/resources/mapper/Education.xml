@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace属性，用于指定当前映射文件和那个接口进行映射，需要制定文件路径，需要指定接口文件路径，需要
+标注包的完整路径接口-->
+<mapper namespace="com.mysql.mapper.EducationMapper">
+<!--自定义映射规则，resultMap标签来完成映射规则的定义
+id属性：标签给这个映射负责分配一个唯一的id值，对应的值就是resultMap='id属性的值'属性的取值。自定义
+type属性：取值是一个类，表示的是数据库中的查选结果与Java中那个实体类进行结果集的映射
+-->
+    <select id="selectEducation" resultMap="Education">
+        select work_experience,salary,work_name,sex,age
+          from education
+
+    </select>
+    <select id="selectByKeyWord" resultMap="Education">
+        select work_experience,salary,work_name,sex,age
+          from education
+         where 1=1 and work_name like concat('%',#{work_name},'%')
+    </select>
+    <resultMap id="Education" type="java.util.Map" autoMapping="true">
+
+    </resultMap>
+<!--将表的资源和类的属性不一致的字段进行匹配指定，名称一致的字段可以省略不写-->
+<!--
+配合完成名称不一致的映射
+column属性：表示表中的资源名称
+property属性：表示类中的属性名称
+uid不能省略主键
+-->
+
+</mapper>
